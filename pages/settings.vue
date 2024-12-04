@@ -187,7 +187,7 @@ async function deleteAccount() {
                 >
                   <Icon name="octicon:unlink-16"></Icon>
                 </UiButton>
-                <UiButton v-else variant="outline-default" @click="connectAccount('Google')"> Connect </UiButton>
+                <UiButton v-else variant="default" @click="connectAccount('Google')"> Connect </UiButton>
               </div>
             </div>
 
@@ -210,7 +210,7 @@ async function deleteAccount() {
                 >
                   <Icon name="octicon:unlink-16"></Icon>
                 </UiButton>
-                <UiButton v-else variant="outline-default" @click="connectAccount('Github')">Connect</UiButton>
+                <UiButton v-else variant="neutral" @click="connectAccount('Github')">Connect</UiButton>
               </div>
             </div>
           </div>
@@ -268,9 +268,9 @@ async function deleteAccount() {
           </UiDialogHeader>
           <UiDialogFooter>
             <UiDialogClose>
-              <UiButton variant="outline-secondary">Cancel</UiButton>
+              <UiButton variant="ghost">Cancel</UiButton>
             </UiDialogClose>
-            <UiButton variant="default" @click="disconnectAccount(disconnectingProvider, true)">
+            <UiButton variant="neutral" @click="disconnectAccount(disconnectingProvider, true)">
               <Icon v-if="isDisconnecting" name="heroicons:arrow-path" class="animate-spin -ml-1 mr-2 h-4 w-4" />
               Disconnect
             </UiButton>

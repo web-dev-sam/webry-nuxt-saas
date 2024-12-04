@@ -1,6 +1,11 @@
 <script lang="ts" setup>
 // const { data } = useAPI("/products")
-defineOgImageComponent("NuxtSeo")
+defineOgImageComponent("NuxtSeo", {
+  title: "Nuxt SaaS Template",
+  description: "A modern SaaS template that helps you launch your product in days, not months.",
+  theme: "#00DA7F",
+  colorMode: "dark",
+})
 
 const componentsBaseStyle = `
   after:absolute overflow-visible after:bottom-[-1rem] after:left-1/2 after:transform after:translate-x-[-50%] after:pt-2 after:hidden group-hover:after:block

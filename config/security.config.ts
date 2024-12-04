@@ -5,6 +5,7 @@ export const security = {
   nonce: true,
   csrf: true,
   hidePoweredBy: true,
+  rateLimiter: process.env.NODE_ENV === "production" ? {} : false,
   headers: {
     crossOriginEmbedderPolicy: false,
     contentSecurityPolicy: {

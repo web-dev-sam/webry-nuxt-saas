@@ -48,6 +48,11 @@ export default defineNuxtConfig({
       },
     },
   },
+  ogImage: {
+    defaults: {
+      component: "NuxtSeo",
+    },
+  },
   typescript: {
     typeCheck: "build",
     tsConfig: {

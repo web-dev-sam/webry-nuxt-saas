@@ -16,7 +16,7 @@
     "lint": "ESLINT_CLI=1 eslint .",
     "check": "pnpm run lint && pnpm run types",
     "postinstall": "nuxt prepare",
-    "prepare": "nuxt prepare",
+    "prepare": "husky",
     "clean": "rm -r .nuxt .output node_modules",
     "cn": "shadcn-vue add && rsync -a --remove-source-files ../components/ ./components/ && find ../components/ -depth -type d -empty -exec rmdir {} \\;",
     "db:gen": "pnpm exec drizzle-kit generate",

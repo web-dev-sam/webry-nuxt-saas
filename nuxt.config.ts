@@ -7,7 +7,7 @@ export default defineNuxtConfig({
   compatibilityDate: "2024-11-01",
   devtools: { enabled: true },
   site: {
-    url: "https://saas-template.webry.app",
+    url: "https://saas-template.webry.com/",
     name: "Nuxt SaaS Template",
     description: "A Nuxt.js template for building SaaS applications.",
     themeColor: "#21C45D",

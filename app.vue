@@ -1,0 +1,31 @@
+<script setup lang="ts">
+useSeoMeta({
+  // Basic SEO
+  title: "SaaS Name",
+  description: "Your compelling description here - make it unique and descriptive",
+  robots: "index, follow",
+  author: "Webry",
+
+  // // Open Graph / Social Media
+  // ogTitle: "SaaS Name",
+  // ogType: "website",
+  // ogUrl: "https://saas-template.webry.com",
+  // ogDescription: "Your compelling description here - make it unique and descriptive",
+  // ogImage: "https://saas-template.webry.com/logo.svg",
+  // ogLocale: "en_US",
+  // ogSiteName: "SaaS Name",
+
+  // // Twitter Cards
+  // twitterCard: "summary_large_image",
+  // twitterTitle: "SaaS Name",
+  // twitterDescription: "Your compelling description here - make it unique and descriptive",
+  // twitterImage: "https://saas-template.webry.com/logo.svg",
+})
+</script>
+
+<template>
+  <NuxtLayout>
+    <NuxtPage />
+    <UiToastToaster />
+  </NuxtLayout>
+</template>

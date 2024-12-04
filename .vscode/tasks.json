@@ -1,0 +1,75 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Clean",
+      "command": "pnpm run clean",
+      "type": "shell",
+      "icon": {
+        "id": "trash"
+      },
+      "options": {
+        "statusbar": {
+          "label": "",
+          "detail": "Clean..."
+        }
+      }
+    },
+    {
+      "label": "Clean",
+      "command": "pnpm run prepare",
+      "type": "shell",
+      "icon": {
+        "id": "sync"
+      },
+      "options": {
+        "statusbar": {
+          "label": "",
+          "detail": "Prepare..."
+        }
+      }
+    },
+    {
+      "label": "Install",
+      "command": "pnpm install",
+      "type": "shell",
+      "icon": {
+        "id": "repo-create"
+      },
+      "options": {
+        "statusbar": {
+          "label": "",
+          "detail": "Install..."
+        }
+      }
+    },
+    {
+      "label": "Install",
+      "command": "pnpm build",
+      "type": "shell",
+      "icon": {
+        "id": "package"
+      },
+      "options": {
+        "statusbar": {
+          "label": "",
+          "detail": "Build..."
+        }
+      }
+    },
+    {
+      "label": "Install",
+      "command": "pnpm dev",
+      "type": "shell",
+      "icon": {
+        "id": "play"
+      },
+      "options": {
+        "statusbar": {
+          "label": "",
+          "detail": "Dev..."
+        }
+      }
+    }
+  ]
+}

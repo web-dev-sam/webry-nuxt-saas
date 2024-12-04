@@ -1,15 +1,10 @@
 {
   // Disable the default formatter, use eslint instead
-  "prettier.enable": true,
-  "editor.formatOnSave": true,
-  "editor.defaultFormatter": "esbenp.prettier-vscode",
-
-  // Auto fix
+  "editor.formatOnSave": false,
+  "editor.detectIndentation": false,
   "editor.codeActionsOnSave": {
     "source.fixAll.eslint": "explicit"
   },
-  "editor.formatOnSaveMode": "file",
-  "editor.detectIndentation": false,
 
   // Silent the stylistic rules in you IDE, but still auto fix them
   "eslint.rules.customizations": [

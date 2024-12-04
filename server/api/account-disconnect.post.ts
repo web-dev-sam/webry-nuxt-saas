@@ -9,7 +9,7 @@ export default defineEventHandler(async (event) => {
   await requireUserSession(event)
 
   // VALUDATE REQUEST BODY
-  const body = await readValidatedBody(event, (body) =>
+  const body = await readValidatedBody(event, body =>
     z
       .object({
         provider: z.union([z.literal<Provider>("Google"), z.literal<Provider>("Github")]),

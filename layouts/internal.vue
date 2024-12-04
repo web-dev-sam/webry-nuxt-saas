@@ -2,8 +2,18 @@
 const { user, clear: clearSession } = useUserSession()
 const userSettingsOpen = ref(false)
 
-// Unref picture to avoid image error before logging out
-const profilePicture = user.value?.profile_picture ?? createProfilePicture()
+// Session can start with a null profile picture (image error, so take a default)
+// When logging out for a short time, the profile picture is null (so keep the user picture)
+const userPicture = ref(createProfilePicture())
+watch(
+  () => user.value?.profile_picture,
+  (newPicture) => {
+    if (newPicture) {
+      userPicture.value = newPicture
+    }
+  },
+  { immediate: true },
+)
 
 async function logOut() {
   await clearSession()
@@ -30,7 +40,7 @@ async function logOut() {
       <div class="flex items-center relative gap-8">
         <Icon name="heroicons:bell" class="w-6 h-6" />
         <NuxtImg
-          :src="profilePicture"
+          :src="userPicture"
           class="h-9 w-9 rounded-full bg-gradient-to-r from-purple-500 to-pink-500"
           role="button"
           @click="userSettingsOpen = !userSettingsOpen"

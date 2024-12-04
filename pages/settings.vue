@@ -17,7 +17,8 @@ if ("connect-account-conflict" in query) {
     title: "Account Conflict",
     description: STATUS_MESSAGES_CONNECT_ACCOUNT.CONFLICT_OTHER_ACCOUNT,
   })
-} else if ("connect-account-failed" in query) {
+}
+else if ("connect-account-failed" in query) {
   toast({
     variant: "destructive",
     title: "Account Connection Failed",

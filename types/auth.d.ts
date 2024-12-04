@@ -4,7 +4,7 @@ declare module "#auth-utils" {
     email: string | null
     email_verified: Date | null
 
-    profile_picture: string
+    profile_picture: string | null
     user_name: string | null
   }
 

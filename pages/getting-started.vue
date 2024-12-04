@@ -29,11 +29,11 @@ const setupSteps: SetupStep[] = [
     code: "cp .env.example .env",
     important: true,
     todos: [
-      'DATABASE_URL="postgresql://..."',
-      'STRIPE_SECRET_KEY="sk_test_..."',
-      'STRIPE_PUBLISHABLE_KEY="pk_test_..."',
-      'SMTP_FROM="support@yourdomain.com"',
-      'SMTP_HOST="smtp.provider.com"',
+      "DATABASE_URL=postgresql://...",
+      "STRIPE_SECRET_KEY=sk_test_...",
+      "STRIPE_PUBLISHABLE_KEY=pk_test_...",
+      "SMTP_FROM=support@yourdomain.com",
+      "SMTP_HOST=smtp.provider.com",
     ],
   },
   {

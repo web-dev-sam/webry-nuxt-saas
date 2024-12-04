@@ -20,7 +20,8 @@ export async function safe<T>(operation: () => Promise<T>): Promise<Result<T, un
   try {
     const data = await operation()
     return { success: true, data }
-  } catch (error) {
+  }
+  catch (error) {
     errorLog(" ", error)
 
     return {

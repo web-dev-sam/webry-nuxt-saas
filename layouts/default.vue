@@ -58,7 +58,7 @@
             <NuxtLink to="https://dev.to/samuel-braun" target="_blank">
               <Icon name="simple-icons:devdotto" size="20px" class="hover:text-gray-800 dark:hover:text-gray-500" />
             </NuxtLink>
-            <NuxtLink to="https://github.com/web-dev-sam/templates/tree/main/nuxt-saas" target="_blank">
+            <NuxtLink to="https://github.com/web-dev-sam/webry-nuxt-saas" target="_blank">
               <Icon name="simple-icons:github" size="20px" class="hover:text-gray-800 dark:hover:text-gray-500" />
             </NuxtLink>
           </div>

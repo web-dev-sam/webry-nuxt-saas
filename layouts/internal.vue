@@ -41,6 +41,7 @@ async function logOut() {
         <Icon name="heroicons:bell" class="w-6 h-6" />
         <NuxtImg
           :src="userPicture"
+          :fallback="createProfilePicture()"
           class="h-9 w-9 rounded-full bg-gradient-to-r from-purple-500 to-pink-500"
           role="button"
           @click="userSettingsOpen = !userSettingsOpen"

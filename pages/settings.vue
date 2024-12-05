@@ -154,6 +154,7 @@ async function deleteAccount() {
           <div class="flex items-center mb-8">
             <NuxtImg
               :src="user?.profile_picture ?? createProfilePicture()"
+              :fallback="createProfilePicture()"
               class="w-20 h-20 rounded-full bg-gray-200 bg-gradient-to-r from-purple-500 to-pink-500"
             />
             <div class="ml-6">

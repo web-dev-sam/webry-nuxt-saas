@@ -57,7 +57,7 @@ const features: Feature[] = [
     title: "SEO",
     icon: "ph:magnifying-glass",
     description: "Optimized for search engines with meta tags and structured data",
-    features: ["Meta tags", "Sitemap generation", "Robots.txt", "Generates OG metadata", "Redirects to canonical URL"],
+    features: ["Meta tags", "Sitemap generation", "Robots.txt", "Generates OG metadata", "Canonical Redirects"],
     planned: ["Structured data"],
     notplanned: [],
   },
@@ -142,14 +142,14 @@ const technologies: Technology[] = [
         <div>
           <h3 class="text-5xl mb-3">{{ feature.title }}</h3>
           <p class="text-lg text-muted-foreground">{{ feature.description }}</p>
-          <div class="flex flex-col lg:flex-row justify-evenly mt-12">
-            <ul v-if="feature.features.length" class="text-left space-y-2">
+          <div class="flex flex-col md:flex-row items-center md:justify-evenly mt-12 gap-2">
+            <ul v-if="feature.features.length" class="space-y-2 w-60">
               <li v-for="item in feature.features" :key="item" class="flex items-center gap-2">
                 <Icon name="heroicons:check-circle" class="w-5 h-5 text-primary" />
                 <span>{{ item }}</span>
               </li>
             </ul>
-            <ul v-if="feature.planned.length + feature.notplanned.length" class="text-left space-y-2">
+            <ul v-if="feature.planned.length + feature.notplanned.length" class="space-y-2 w-60">
               <li v-for="todo in feature.planned" :key="todo" class="flex items-center gap-2" data-tooltip="Planned...">
                 <Icon name="heroicons:paper-airplane" class="w-5 h-5 -rotate-45 text-blue-400" />
                 <span>{{ todo }}</span>

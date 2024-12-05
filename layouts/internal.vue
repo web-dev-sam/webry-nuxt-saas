@@ -26,19 +26,18 @@ async function logOut() {
 <template>
   <div class="container">
     <header
-      class="flex justify-between my-10 align-middle h-9 items-center text-gray-700 dark:text-foreground container"
+      class="flex justify-between my-10 align-middle h-9 items-center text-gray-700 dark:text-foreground md:container"
     >
       <div class="flex items-center">
-        <NuxtLink to="/dashboard" tabindex="-1" aria-label="Home">
+        <NuxtLink to="/dashboard" aria-label="Home">
           <CommonLogo class="h-9" aria-hidden="true" />
         </NuxtLink>
       </div>
       <div class="flex gap-16">
         <NuxtLink to="/dashboard" class="hover:text-gray-900 dark:hover:text-gray-400">Dashboard</NuxtLink>
-        <NuxtLink to="/getting-started" class="hover:text-gray-900 dark:hover:text-gray-400">Getting Started</NuxtLink>
       </div>
       <div class="flex items-center relative gap-8">
-        <Icon name="heroicons:bell" class="w-6 h-6" />
+        <Icon name="heroicons:bell" class="w-6 h-6 hidden md:block" />
         <NuxtImg
           :src="userPicture"
           :fallback="createProfilePicture()"
@@ -48,6 +47,12 @@ async function logOut() {
         ></NuxtImg>
         <UiCommand v-model:open="userSettingsOpen" class="rounded-lg shadow-md w-[16ch] absolute top-12 right-0">
           <UiCommandList class="my-2 mx-1">
+            <NuxtLink to="/getting-started" class="block" aria-label="Getting Started">
+              <UiCommandItem value="Getting Started" class="py-2 cursor-pointer">
+                <Icon name="tabler:rocket" class="mr-2 h-4 w-4" />
+                <span>Getting Started</span>
+              </UiCommandItem>
+            </NuxtLink>
             <NuxtLink to="/settings" class="block" aria-label="Settings">
               <UiCommandItem value="Settings" class="py-2 cursor-pointer">
                 <Icon name="tabler:settings-2" class="mr-2 h-4 w-4" />
@@ -62,12 +67,12 @@ async function logOut() {
         </UiCommand>
       </div>
     </header>
-    <main class="min-h-[calc(100vh-207px)] container">
+    <main class="min-h-[calc(100vh-207px)] md:container">
       <!-- TODO: Remove nonesense min-h when more content -->
       <slot />
     </main>
     <footer class="text-muted-foreground">
-      <div class="container mx-auto py-8">
+      <div class="md:container mx-auto py-8">
         <div class="flex flex-col md:flex-row justify-between items-center gap-4">
           <div class="flex items-center gap-2"></div>
 

@@ -78,6 +78,14 @@ export default defineNuxtConfig({
     preset: "node-server",
     compressPublicAssets: true,
     minify: true,
+    routeRules: {
+      "/fonts/**": {
+        headers: {
+          "Cache-Control": "public, max-age=604800, stale-while-revalidate=86400",
+          "Access-Control-Allow-Origin": "*",
+        },
+      },
+    },
   },
   robots: {
     blockNonSeoBots: true,

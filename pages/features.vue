@@ -68,14 +68,14 @@ const features: Feature[] = [
     features: [
       "TypeScript",
       "Logging",
-      "Linting",
+      "Linting & Formatting",
       "Result-based errors",
       "200.000+ icons",
       "GDPR compliant fonts",
       "VSCode extensions",
       "Precommit hooks",
     ],
-    planned: ["ESLint autofix formatting", "Dark/Light mode", "Unified design", "Mobile support"],
+    planned: ["Dark/Light mode", "Unified design", "Mobile support"],
     notplanned: [],
   },
   {

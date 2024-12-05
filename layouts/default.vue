@@ -13,9 +13,9 @@
     <header
       class="flex justify-between my-10 align-middle h-9 items-center text-gray-700 dark:text-foreground container"
     >
-      <div class="flex items-center">
+      <div class="flex items-center justify-start">
         <NuxtLink to="/">
-          <NuxtImg src="/logo.svg" alt="Name" class="h-9" onerror="" :preload="{ fetchPriority: 'high' }" />
+          <CommonLogo class="h-9" />
         </NuxtLink>
       </div>
       <div class="flex gap-8">
@@ -48,7 +48,7 @@
           </div>
 
           <div class="flex gap-8 text-sm">
-            <NuxtLink to="http://localhost:3000/privacy" class="hover:text-gray-900 dark:hover:text-gray-400">
+            <NuxtLink to="/legal/privacy" class="hover:text-gray-900 dark:hover:text-gray-400">
               Privacy
             </NuxtLink>
             <NuxtLink to="/legal/terms" class="hover:text-gray-900 dark:hover:text-gray-400">Terms</NuxtLink>

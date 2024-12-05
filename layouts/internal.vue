@@ -30,7 +30,7 @@ async function logOut() {
     >
       <div class="flex items-center">
         <NuxtLink to="/dashboard">
-          <NuxtImg src="/logo.svg" alt="Name" class="h-9" :preload="{ fetchPriority: 'high' }" />
+          <CommonLogo class="h-9" />
         </NuxtLink>
       </div>
       <div class="flex gap-16">

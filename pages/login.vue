@@ -10,7 +10,7 @@ if (loggedIn.value) {
     <div class="container mx-auto px-4 pt-32 pb-20">
       <div class="max-w-md mx-auto p-8">
         <div class="text-center mb-8">
-          <NuxtImg src="/logo.svg" alt="Name" class="h-32 mx-auto mt-8 mb-8" />
+          <CommonLogo class="h-32 mx-auto mt-8 mb-8" />
           <h1 class="text-2xl mb-2">Welcome to SaaS Template</h1>
           <p class="dark:text-muted-foreground">Sign in to your account</p>
         </div>

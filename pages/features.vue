@@ -23,7 +23,7 @@ const features: Feature[] = [
     notplanned: ["Database seeding"],
   },
   {
-    title: "Secure",
+    title: "Security",
     icon: "ph:shield-check",
     description: "Security-first approach with CSRF protection and CSP headers", // also noopener noreferrer
     features: [
@@ -75,7 +75,7 @@ const features: Feature[] = [
       "VSCode extensions",
       "Precommit hooks",
     ],
-    planned: ["Dark/Light mode", "Unified design", "Mobile support"],
+    planned: ["Dark/Light mode", "Unified design"],
     notplanned: [],
   },
   {

@@ -76,6 +76,8 @@ export default defineNuxtConfig({
   },
   nitro: {
     preset: "node-server",
+    compressPublicAssets: true,
+    minify: true,
   },
   robots: {
     blockNonSeoBots: true,

@@ -44,6 +44,7 @@ const componentsBaseStyle = `
                 no-prefetch
                 target="_blank"
                 class="dark:hover:text-[#00DB81] p-2 relative group"
+                aria-label="Nuxt"
               >
                 <div
                   :class="
@@ -59,6 +60,7 @@ const componentsBaseStyle = `
                 no-prefetch
                 target="_blank"
                 class="dark:hover:text-[#0DA4E9] p-2 relative group"
+                aria-label="Tailwind"
               >
                 <div
                   :class="
@@ -74,6 +76,7 @@ const componentsBaseStyle = `
                 no-prefetch
                 target="_blank"
                 class="dark:hover:text-[#FFF] p-2 relative group"
+                aria-label="Shadcn"
               >
                 <div
                   :class="
@@ -92,6 +95,7 @@ const componentsBaseStyle = `
                 no-prefetch
                 target="_blank"
                 class="dark:hover:text-[#C4F74F] p-2 relative group"
+                aria-label="Drizzle ORM"
               >
                 <div
                   :class="
@@ -110,6 +114,7 @@ const componentsBaseStyle = `
                 no-prefetch
                 target="_blank"
                 class="dark:hover:text-[#5F56F7] p-2 relative group"
+                aria-label="Stripe"
               >
                 <div
                   :class="

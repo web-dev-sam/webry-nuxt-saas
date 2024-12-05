@@ -29,7 +29,7 @@ async function logOut() {
       class="flex justify-between my-10 align-middle h-9 items-center text-gray-700 dark:text-foreground container"
     >
       <div class="flex items-center">
-        <NuxtLink to="/dashboard">
+        <NuxtLink to="/dashboard" aria-hidden="true">
           <CommonLogo class="h-9" />
         </NuxtLink>
       </div>
@@ -48,13 +48,13 @@ async function logOut() {
         ></NuxtImg>
         <UiCommand v-model:open="userSettingsOpen" class="rounded-lg shadow-md w-[16ch] absolute top-12 right-0">
           <UiCommandList class="my-2 mx-1">
-            <NuxtLink to="/settings" class="block">
+            <NuxtLink to="/settings" class="block" aria-label="Settings">
               <UiCommandItem value="Settings" class="py-2 cursor-pointer">
                 <Icon name="tabler:settings-2" class="mr-2 h-4 w-4" />
                 <span>Settings</span>
               </UiCommandItem>
             </NuxtLink>
-            <UiCommandItem value="Logout" class="py-2 cursor-pointer" role="button" @click="logOut">
+            <UiCommandItem value="Logout" class="py-2 cursor-pointer" role="button" aria-label="Logout" @click="logOut">
               <Icon name="tabler:logout-2" class="mr-2 h-4 w-4" />
               <span>Logout</span>
             </UiCommandItem>
@@ -68,15 +68,15 @@ async function logOut() {
     </main>
     <footer>
       <div class="container mx-auto py-8">
-        <div class="flex flex-col md:flex-row justify-between items-center gap-4 text-gray-600">
+        <div class="flex flex-col md:flex-row justify-between items-center gap-4 text-gray-500">
           <div class="flex items-center gap-2"></div>
 
-          <div class="flex gap-8 text-sm text-gray-600">
+          <div class="flex gap-8 text-sm text-gray-500">
             <NuxtLink to="/legal/privacy" class="hover:text-gray-900 dark:hover:text-gray-400">Privacy</NuxtLink>
             <NuxtLink to="/legal/terms" class="hover:text-gray-900 dark:hover:text-gray-400">Terms</NuxtLink>
           </div>
 
-          <div class="flex gap-4 text-gray-600"></div>
+          <div class="flex gap-6 text-gray-500"></div>
         </div>
       </div>
     </footer>

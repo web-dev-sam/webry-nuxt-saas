@@ -16,7 +16,7 @@ if (loggedIn.value) {
         </div>
 
         <div class="space-y-4 mb-6">
-          <NuxtLink to="/api/auth/google" external class="w-full border rounded-lg hover:translate-x-1 transition-all">
+          <NuxtLink to="/api/auth/google" external class="w-full border rounded-lg hover:translate-x-1 transition-all" aria-label="Sign in with Google" as-child>
             <UiButton
               variant="secondary"
               class="inline-flex items-center justify-center gap-3 px-4 py-6 w-full text-sm"
@@ -30,6 +30,7 @@ if (loggedIn.value) {
             to="/api/auth/github"
             external
             class="w-full border rounded-lg hover:translate-x-1 transition-all"
+            aria-label="Sign in with GitHub"
             as-child
           >
             <UiButton

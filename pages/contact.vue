@@ -49,7 +49,7 @@ const contactMethods: ContactMethod[] = [
           </div>
           <h3 class="text-lg font-semibold mb-2">{{ method.title }}</h3>
           <p class="text-muted-foreground mb-4">{{ method.description }}</p>
-          <NuxtLink v-if="method.link" :to="method.link" class="text-primary-600 hover:text-primary-700 font-medium">
+          <NuxtLink v-if="method.link" :to="method.link" class="text-primary-600 hover:text-primary-700 font-medium" :aria-label="method.action">
             {{ method.action }}
           </NuxtLink>
         </div>

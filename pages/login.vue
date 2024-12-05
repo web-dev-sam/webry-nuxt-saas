@@ -7,7 +7,7 @@ if (loggedIn.value) {
 
 <template>
   <div class="min-h-screen">
-    <div class="container mx-auto px-4 pt-32 pb-20">
+    <div class="container mx-auto px-4 pt-16 md:pt-32 pb-20">
       <div class="max-w-md mx-auto p-8">
         <div class="text-center mb-8">
           <CommonLogo class="h-32 mx-auto mt-8 mb-8" />

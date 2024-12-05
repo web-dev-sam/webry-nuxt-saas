@@ -66,17 +66,17 @@ async function logOut() {
       <!-- TODO: Remove nonesense min-h when more content -->
       <slot />
     </main>
-    <footer>
+    <footer class="text-muted-foreground">
       <div class="container mx-auto py-8">
-        <div class="flex flex-col md:flex-row justify-between items-center gap-4 text-gray-500">
+        <div class="flex flex-col md:flex-row justify-between items-center gap-4">
           <div class="flex items-center gap-2"></div>
 
-          <div class="flex gap-8 text-sm text-gray-500">
-            <NuxtLink to="/legal/privacy" class="hover:text-gray-900 dark:hover:text-gray-400">Privacy</NuxtLink>
-            <NuxtLink to="/legal/terms" class="hover:text-gray-900 dark:hover:text-gray-400">Terms</NuxtLink>
+          <div class="flex gap-8 text-sm ">
+            <NuxtLink to="/legal/privacy" class="hover:text-gray-900 dark:hover:text-gray-300">Privacy</NuxtLink>
+            <NuxtLink to="/legal/terms" class="hover:text-gray-900 dark:hover:text-gray-300">Terms</NuxtLink>
           </div>
 
-          <div class="flex gap-6 text-gray-500"></div>
+          <div class="flex gap-6"></div>
         </div>
       </div>
     </footer>

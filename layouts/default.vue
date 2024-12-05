@@ -43,24 +43,24 @@
     </main>
     <footer>
       <div class="container mx-auto py-8">
-        <div class="flex flex-col md:flex-row justify-between items-center gap-4 text-gray-500">
+        <div class="flex flex-col md:flex-row justify-between items-center gap-4 text-muted-foreground">
           <div class="flex items-center gap-2">
             <span class="text-sm">&copy; 2025 Webry</span>
           </div>
 
           <div class="flex gap-8 text-sm">
-            <NuxtLink to="/legal/privacy" class="hover:text-gray-900 dark:hover:text-gray-400">
+            <NuxtLink to="/legal/privacy" class="hover:text-gray-900 dark:hover:text-gray-300">
               Privacy
             </NuxtLink>
-            <NuxtLink to="/legal/terms" class="hover:text-gray-900 dark:hover:text-gray-400">Terms</NuxtLink>
+            <NuxtLink to="/legal/terms" class="hover:text-gray-900 dark:hover:text-gray-300">Terms</NuxtLink>
           </div>
 
           <div class="flex gap-6">
             <NuxtLink to="https://dev.to/samuel-braun" target="_blank" aria-label="Dev.to">
-              <Icon name="simple-icons:devdotto" size="20px" class="hover:text-gray-800 dark:hover:text-gray-500" />
+              <Icon name="simple-icons:devdotto" size="20px" class="hover:text-gray-800 dark:hover:text-gray-300" />
             </NuxtLink>
             <NuxtLink to="https://github.com/web-dev-sam/webry-nuxt-saas" target="_blank" aria-label="GitHub">
-              <Icon name="simple-icons:github" size="20px" class="hover:text-gray-800 dark:hover:text-gray-500" />
+              <Icon name="simple-icons:github" size="20px" class="hover:text-gray-800 dark:hover:text-gray-300" />
             </NuxtLink>
           </div>
         </div>

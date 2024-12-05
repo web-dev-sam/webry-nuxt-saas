@@ -14,8 +14,8 @@
       class="flex justify-between my-10 align-middle h-9 items-center text-gray-700 dark:text-foreground container"
     >
       <div class="flex items-center justify-start">
-        <NuxtLink to="/" aria-hidden="true">
-          <CommonLogo class="h-9" />
+        <NuxtLink to="/" tabindex="-1">
+          <CommonLogo class="h-9" aria-hidden="true" />
         </NuxtLink>
       </div>
       <div class="flex gap-8">

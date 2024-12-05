@@ -35,6 +35,9 @@ export default defineNuxtConfig({
     oauthGithubConnectClientPassword: "",
 
     postgresUrl: "",
+    public: {
+      contactEmail: "sam@webry.com",
+    },
   },
   experimental: {
     defaults: {

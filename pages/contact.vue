@@ -7,6 +7,7 @@ interface ContactMethod {
   action?: string
 }
 
+const contactEmail = useRuntimeConfig().public.contactEmail
 const contactMethods: ContactMethod[] = [
   {
     icon: "heroicons:chat-bubble-left-right",
@@ -26,7 +27,7 @@ const contactMethods: ContactMethod[] = [
     icon: "heroicons:envelope",
     title: "Email Support",
     description: "Send us an email",
-    link: "mailto:sam@webry.com",
+    link: `mailto:${contactEmail}`,
     action: "Support →",
   },
 ]

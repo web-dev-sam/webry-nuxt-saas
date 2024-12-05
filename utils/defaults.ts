@@ -29,7 +29,8 @@ export const STATUS_MESSAGES_CONNECT_ACCOUNT = {
 }
 
 export function wrapUnknownClientError(message?: string) {
-  return `Please reload the page and try again. If the issue persists, contact support: sam@webry.com${
+  const contactEmail = useRuntimeConfig().public.contactEmail
+  return `Please reload the page and try again. If the issue persists, contact support: ${contactEmail}${
     message ? `\n\nError Type: ${message}` : ""
   }`
 }

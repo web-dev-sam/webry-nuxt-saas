@@ -1,4 +1,6 @@
-<script lang="ts" setup></script>
+<script lang="ts" setup>
+const contactEmail = useRuntimeConfig().public.contactEmail
+</script>
 
 <template>
   <div class="prose dark:prose-invert mt-24 mx-auto max-w-[80ch]">
@@ -119,8 +121,8 @@
     <h2>Contact Us</h2>
     <p>If you have any questions about these Terms, please contact us:</p>
     <ul>
-      <li>By email: sam@webry.com</li>
-      <li>By visiting this page on our website: https://saas-template.webry.com/contact</li>
+      <li>By email: {{ contactEmail }}</li>
+      <li>By visiting this page on our website: https://saas.webry.com/contact</li>
     </ul>
   </div>
 </template>

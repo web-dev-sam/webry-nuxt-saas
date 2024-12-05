@@ -9,9 +9,9 @@ useSeoMeta({
   // // Open Graph / Social Media
   // ogTitle: "SaaS Name",
   // ogType: "website",
-  // ogUrl: "https://saas-template.webry.com",
+  // ogUrl: "https://saas.webry.com",
   // ogDescription: "Your compelling description here - make it unique and descriptive",
-  // ogImage: "https://saas-template.webry.com/logo.svg",
+  // ogImage: "https://saas.webry.com/logo.svg",
   // ogLocale: "en_US",
   // ogSiteName: "SaaS Name",
 
@@ -19,7 +19,7 @@ useSeoMeta({
   // twitterCard: "summary_large_image",
   // twitterTitle: "SaaS Name",
   // twitterDescription: "Your compelling description here - make it unique and descriptive",
-  // twitterImage: "https://saas-template.webry.com/logo.svg",
+  // twitterImage: "https://saas.webry.com/logo.svg",
 })
 </script>
 

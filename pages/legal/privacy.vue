@@ -1,4 +1,6 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+const contactEmail = useRuntimeConfig().public.contactEmail
+</script>
 
 <template>
   <div class="prose dark:prose-invert mt-24 mx-auto max-w-[80ch]">
@@ -85,8 +87,8 @@
       <li>
         <p>
           <strong>Website</strong> refers to Webry SaaS Template, accessible from
-          <a href="https://saas-template.webry.com/" rel="external nofollow noopener" target="_blank">
-            https://saas-template.webry.com/
+          <a href="https://saas.webry.com/" rel="external nofollow noopener" target="_blank">
+            https://saas.webry.com/
           </a>
         </p>
       </li>
@@ -415,7 +417,7 @@
     <h2>Contact Us</h2>
     <p>If you have any questions about this Privacy Policy, You can contact us:</p>
     <ul>
-      <li>By email: sam@webry.com</li>
+      <li>By email: {{ contactEmail }}</li>
     </ul>
   </div>
 </template>

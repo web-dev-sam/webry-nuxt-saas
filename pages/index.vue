@@ -16,7 +16,7 @@ const componentsBaseStyle = `
 <template>
   <div>
     <section class="transition-colors duration-200">
-      <div class="container mx-auto px-4 pt-32 pb-20">
+      <div class="container mx-auto px-4 pt-24 md:pt-32 pb-20">
         <div class="max-w-3xl mx-auto text-center">
           <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 dark:text-white mb-6 leading-tight">
             Build amazing web apps faster than ever

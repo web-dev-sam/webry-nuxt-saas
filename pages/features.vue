@@ -25,7 +25,7 @@ const features: Feature[] = [
   {
     title: "Security",
     icon: "ph:shield-check",
-    description: "Security-first approach with CSRF protection and CSP headers", // also noopener noreferrer
+    description: "Security-first approach with CSRF protection and CSP headers",
     features: [
       "CSRF protection",
       "Strict CSP headers",

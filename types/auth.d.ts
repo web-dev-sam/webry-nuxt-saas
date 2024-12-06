@@ -1,11 +1,11 @@
 declare module "#auth-utils" {
   interface User {
-    name: string | null
-    email: string | null
-    email_verified: Date | null
+    name?: string
+    email?: string
+    email_verified?: Date
 
-    profile_picture: string | null
-    user_name: string | null
+    profile_picture?: string
+    user_name?: string
   }
 
   interface UserSession {

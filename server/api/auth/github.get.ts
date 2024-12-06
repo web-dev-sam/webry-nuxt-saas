@@ -76,10 +76,10 @@ async function handleExistingGitHubAccount(event: OAuthH3Event, db: DB, user: Gi
   if (existingAccount != null) {
     await setUserSession(event, {
       user: {
-        email: existingAccount.email,
-        email_verified: existingAccount.email_verified,
-        name: existingAccount.name,
-        user_name: existingAccount.user_name,
+        email: existingAccount.email ?? undefined,
+        email_verified: existingAccount.email_verified ?? undefined,
+        name: existingAccount.name ?? undefined,
+        user_name: existingAccount.user_name ?? undefined,
         profile_picture: existingAccount.profile_picture ?? createProfilePicture(),
       },
       secure: {
@@ -130,10 +130,10 @@ async function handleNewGitHubAccount(event: OAuthH3Event, db: DB, user: GitHubO
   const [newAccount] = newAccountResult.data
   await setUserSession(event, {
     user: {
-      email: user.email,
-      email_verified: null, // GitHub doesn't provide email verification status
-      name: user.name,
-      user_name: null,
+      email: user.email ?? undefined,
+      email_verified: undefined, // GitHub doesn't provide email verification status
+      name: user.name ?? undefined,
+      user_name: undefined,
       profile_picture: user.avatar_url,
     },
     secure: {

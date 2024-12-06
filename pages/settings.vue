@@ -1,5 +1,7 @@
 <script setup lang="ts">
 import type { Provider } from "~/types/auth"
+import { z } from "zod"
+import { MAX_EMAIL_LENGTH, MAX_USER_NAME_LENGTH } from "~/utils/defaults"
 
 definePageMeta({
   layout: "internal",
@@ -17,8 +19,7 @@ if ("connect-account-conflict" in query) {
     title: "Account Conflict",
     description: STATUS_MESSAGES_CONNECT_ACCOUNT.CONFLICT_OTHER_ACCOUNT,
   })
-}
-else if ("connect-account-failed" in query) {
+} else if ("connect-account-failed" in query) {
   toast({
     variant: "destructive",
     title: "Account Connection Failed",
@@ -33,6 +34,9 @@ const deleteDialogOpen = ref(false)
 const disconnectDialogOpen = ref(false)
 const disconnectingProvider = ref<Provider>("Google")
 const isDisconnecting = ref(false)
+const madeProfileChanges = ref(false)
+const invalidEmail = ref(false)
+const invalidUsername = ref(false)
 
 const { data, status, refresh } = useFetch("/api/settings", {
   method: "GET",
@@ -130,45 +134,132 @@ async function deleteAccount() {
     },
   })
 }
+
+async function saveProfileChanges() {
+  if (data.value == null) {
+    return
+  }
+  await requireLoggedIn()
+
+  isDeleting.value = true
+  await $csrfFetch("/api/account", {
+    method: "PATCH",
+    body: {
+      user_name: data.value.user_name,
+      email: data.value.email,
+    },
+    onResponse: (res) => {
+      if (!res.error) {
+        madeProfileChanges.value = false
+        toast({
+          variant: "success",
+          title: "Profile Updated",
+          description: "Your profile has been updated successfully.",
+        })
+      }
+    },
+    onResponseError({ response }) {
+      const errors = response.statusText.replace(STATUS_MESSAGES.INVALID, "").split(", ")
+      invalidEmail.value = errors.includes("email")
+      invalidUsername.value = errors.includes("user_name")
+
+      toast({
+        variant: "destructive",
+        title: "An Error Occurred",
+        description: wrapUnknownClientError(response.statusText),
+      })
+    },
+  })
+}
 </script>
 
 <template>
   <div>
-    <!-- Top Navigation -->
-    <nav class="border-b border-border">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="flex justify-between h-16">
-          <div class="flex items-center">
-            <h1 class="text-xl font-semibold">Settings</h1>
-          </div>
-        </div>
-      </div>
-    </nav>
+    <section role="heading">
+      <h1 class="text-xl font-semibold text-center">Settings</h1>
+    </section>
 
-    <main class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-      <div class="rounded-lg mb-8">
-        <div class="px-6 py-4 border-b border-border">
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section class="py-4 space-y-4">
+        <div class="px-6 py-4 mb-8 border-b border-border">
           <h2 class="text-lg font-medium">Profile Information</h2>
         </div>
-        <div class="p-6">
-          <div class="flex items-center mb-8">
-            <NuxtImg
-              :src="user?.profile_picture ?? createProfilePicture()"
-              :fallback="createProfilePicture()"
-              class="w-20 h-20 rounded-full bg-gray-200 bg-gradient-to-r from-purple-500 to-pink-500"
-            />
-            <div class="ml-6">
-              <p class="text-sm text-gray-500">Profile Picture</p>
+        <div>
+          <div class="px-6">
+            <div class="flex items-center mb-8">
+              <NuxtImg
+                :src="user?.profile_picture ?? createProfilePicture()"
+                :fallback="createProfilePicture()"
+                class="w-20 h-20 rounded-full bg-gray-200 bg-gradient-to-r from-purple-500 to-pink-500"
+              />
+              <div class="ml-6">
+                <p class="text-sm text-muted-foreground">Profile Picture</p>
+              </div>
             </div>
           </div>
-        </div>
-      </div>
+          <div class="px-6 space-y-4">
+            <div v-if="status === 'success' && data" class="space-y-2">
+              <UiLabel for="username">Username</UiLabel>
+              <UiInput
+                id="username"
+                v-model="data.user_name"
+                placeholder="Your username"
+                :class="{ 'focus-visible:ring-destructive': invalidUsername }"
+                :schema="z.string().min(0).max(MAX_USER_NAME_LENGTH).optional()"
+                @input="madeProfileChanges = true"
+              />
+            </div>
+            <UiSkeleton v-else class="w-24 h-9" />
 
-      <div class="rounded-lg mb-8">
-        <div class="px-6 py-4 border-b border-border">
+            <div v-if="status === 'success' && data" class="space-y-2">
+              <UiLabel for="email">
+                Email
+              </UiLabel>
+              <div class="flex gap-2">
+                <UiInput
+                  id="email"
+                  v-model="data.email"
+                  type="email"
+                  placeholder="your@email.com"
+                  :class="{ 'focus-visible:ring-destructive': invalidEmail }"
+                  :schema="z.string().min(0).max(MAX_EMAIL_LENGTH).email().optional()"
+                  @input="madeProfileChanges = true"
+                />
+                <UiButton
+                  variant="neutral"
+                  size="default"
+                  class="text-nowrap"
+                  :hidden="data.email_verified"
+                >
+                  {{ data.email_verified ? 'Verified' : 'Verify Email' }}
+                </UiButton>
+              </div>
+              <p
+                class="text-sm"
+                :class="data.email_verified ? 'text-green-600' : 'text-muted-foreground'"
+              >
+                {{ data.email_verified ? 'Email verified' : 'Please verify your email address' }}
+              </p>
+            </div>
+            <UiSkeleton v-else class="w-24 h-9" />
+          </div>
+          <div class="px-6 pt-6 flex justify-end">
+            <UiButton
+              v-if="madeProfileChanges"
+              variant="primary"
+              @click="saveProfileChanges"
+            >
+              Update Profile
+            </UiButton>
+          </div>
+        </div>
+      </section>
+
+      <section class="py-4 space-y-4">
+        <div class="px-6 py-4 mb-8 border-b border-border">
           <h2 class="text-lg font-medium">Connected Accounts</h2>
         </div>
-        <div class="p-6">
+        <div class="px-6">
           <div class="space-y-4">
             <div class="flex items-center justify-between">
               <div class="flex items-center space-x-3">
@@ -189,7 +280,7 @@ async function deleteAccount() {
                 >
                   <Icon name="octicon:unlink-16"></Icon>
                 </UiButton>
-                <UiButton v-else variant="default" @click="connectAccount('Google')"> Connect </UiButton>
+                <UiButton v-else variant="neutral" @click="connectAccount('Google')"> Connect </UiButton>
               </div>
             </div>
 
@@ -217,13 +308,13 @@ async function deleteAccount() {
             </div>
           </div>
         </div>
-      </div>
+      </section>
 
-      <div class="rounded-lg">
-        <div class="px-6 py-4 border-b border-border">
+      <section class="py-4 space-y-4">
+        <div class="px-6 py-4 mb-8 border-b border-border">
           <h2 class="text-lg font-medium text-red-600">Danger Zone</h2>
         </div>
-        <div class="p-6">
+        <div class="px-6">
           <p class="text-sm text-gray-500 mb-4">Once you delete your account, there is no going back.</p>
 
           <UiDialog v-model:open="deleteDialogOpen">
@@ -258,7 +349,7 @@ async function deleteAccount() {
             </UiDialogContent>
           </UiDialog>
         </div>
-      </div>
+      </section>
 
       <UiDialog v-model:open="disconnectDialogOpen">
         <UiDialogContent class="sm:max-w-[425px]">
@@ -279,6 +370,6 @@ async function deleteAccount() {
           </UiDialogFooter>
         </UiDialogContent>
       </UiDialog>
-    </main>
+    </div>
   </div>
 </template>

@@ -4,6 +4,16 @@ definePageMeta({
   middleware: "auth",
 })
 
+if (import.meta.client) {
+  const redirect = localStorage.getItem("redirectTo")
+  if (redirect) {
+    localStorage.removeItem("redirectTo")
+    navigateTo(redirect, {
+      replace: true,
+    })
+  }
+}
+
 interface Stat {
   name: string
   value: string | number

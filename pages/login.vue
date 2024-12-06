@@ -3,6 +3,13 @@ const { loggedIn } = useUserSession()
 if (loggedIn.value) {
   void navigateTo("/dashboard")
 }
+
+const router = useRouter()
+const route = useRoute()
+if (import.meta.client && "redirect" in route.query && typeof route.query.redirect === "string") {
+  localStorage.setItem("redirectTo", route.query.redirect)
+  router.replace({ query: {} })
+}
 </script>
 
 <template>

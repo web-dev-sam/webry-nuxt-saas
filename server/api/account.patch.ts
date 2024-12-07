@@ -28,7 +28,7 @@ export default defineEventHandler(async (event) => {
     const errs = body.error.errors.map(error =>
       ["user_name", "email"].find(field => error.path.join(".").endsWith(field)),
     ).filter(Boolean) as string[]
-    return errorAPIResponse({
+    throw errorAPIResponse({
       statusCode: HTTP.BAD_REQUEST,
       statusMessage: STATUS_MESSAGES.INVALID + errs.join(", "),
       clientMessage: "Make sure all fields are filled out correctly.",
@@ -46,13 +46,20 @@ export default defineEventHandler(async (event) => {
     .where(eq(pgtAccounts.account_id, loggedInAccountId)),
   )
   if (!updatedAccount.success) {
-    return errorAPIResponse({
+    throw errorAPIResponse({
       statusCode: HTTP.INTERNAL_SERVER_ERROR,
       statusMessage: STATUS_MESSAGES.UNKNOWN,
       clientMessage: "Failed to update account settings. Try again in 5 minutes.",
       serverMessage: "Failed to update account settings.",
     })
   }
+
+  setUserSession(event, {
+    user: {
+      user_name: body.data.user_name ?? undefined,
+      email: body.data.email ?? undefined,
+    },
+  })
 
   return "Account settings updated successfully!"
 })

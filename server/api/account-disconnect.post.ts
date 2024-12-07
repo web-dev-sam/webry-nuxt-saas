@@ -8,7 +8,7 @@ import { errorAPIResponse, successAPIResponse } from "../utils/log"
 export default defineEventHandler(async (event) => {
   await requireUserSession(event)
 
-  // VALUDATE REQUEST BODY
+  // VALIDATE REQUEST BODY
   const body = await readValidatedBody(event, body =>
     z
       .object({

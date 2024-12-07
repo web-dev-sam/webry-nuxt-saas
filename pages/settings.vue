@@ -37,6 +37,7 @@ const isDisconnecting = ref(false)
 const madeProfileChanges = ref(false)
 const invalidEmail = ref(false)
 const invalidUsername = ref(false)
+const savingProfile = ref(false)
 
 const { data, status, refresh } = useFetch("/api/settings", {
   method: "GET",
@@ -141,7 +142,7 @@ async function saveProfileChanges() {
   }
   await requireLoggedIn()
 
-  isDeleting.value = true
+  savingProfile.value = true
   await $csrfFetch("/api/account", {
     method: "PATCH",
     body: {
@@ -157,12 +158,38 @@ async function saveProfileChanges() {
           description: "Your profile has been updated successfully.",
         })
       }
+      savingProfile.value = false
     },
     onResponseError({ response }) {
       const errors = response.statusText.replace(STATUS_MESSAGES.INVALID, "").split(", ")
       invalidEmail.value = errors.includes("email")
       invalidUsername.value = errors.includes("user_name")
 
+      savingProfile.value = false
+      toast({
+        variant: "destructive",
+        title: "An Error Occurred",
+        description: wrapUnknownClientError(response.statusText),
+      })
+    },
+  })
+}
+
+async function verifyEmail() {
+  await requireLoggedIn()
+
+  await $csrfFetch("/api/account-verify-email", {
+    method: "POST",
+    onResponse: (res) => {
+      if (!res.error) {
+        toast({
+          variant: "success",
+          title: "Email Verification Sent",
+          description: "A verification email has been sent to your email address.",
+        })
+      }
+    },
+    onResponseError({ response }) {
       toast({
         variant: "destructive",
         title: "An Error Occurred",
@@ -226,12 +253,13 @@ async function saveProfileChanges() {
                   @input="madeProfileChanges = true"
                 />
                 <UiButton
+                  v-if="!data.email_verified"
                   variant="neutral"
                   size="default"
                   class="text-nowrap"
-                  :hidden="data.email_verified"
+                  @click="verifyEmail"
                 >
-                  {{ data.email_verified ? 'Verified' : 'Verify Email' }}
+                  Verify Email
                 </UiButton>
               </div>
               <p
@@ -249,6 +277,7 @@ async function saveProfileChanges() {
               variant="primary"
               @click="saveProfileChanges"
             >
+              <Icon v-if="savingProfile" name="heroicons:arrow-path" class="animate-spin -ml-1 mr-2 h-4 w-4" />
               Update Profile
             </UiButton>
           </div>

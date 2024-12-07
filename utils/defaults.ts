@@ -11,6 +11,7 @@ export const HTTP = {
   UNAUTHORIZED: 401,
   NOT_FOUND: 404,
   CONFLICT: 409,
+  TOO_MANY_REQUESTS: 429,
   INTERNAL_SERVER_ERROR: 500,
 } as const
 export type HttpCode = (typeof HTTP)[keyof typeof HTTP]
@@ -20,11 +21,13 @@ export const STATUS_MESSAGES = {
   NOT_FOUND: "The requested resource was not found",
   NOT_AUTHORIZED: "You need to be logged in for access",
   INVALID: "The provided data was invalid: ",
+  RATE_LIMIT: "You are being rate limited",
   DUMB_DEV: "Oopsies! Must have forgotten how to code...",
 } as const
 
 export const STATUS_MESSAGES_SETTINGS = {
   ONLY_ONE_PROVIDER_CONNECTED: "You can't disconnect your last connected provider!",
+  EMAIL_VERIFICATION_FAILED: "Failed to verify email",
 } as const
 
 export const STATUS_MESSAGES_CONNECT_ACCOUNT = {

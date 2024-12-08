@@ -69,7 +69,7 @@ export default defineEventHandler(async (event) => {
       from: "Sam <sam@saas-email.webry.com>",
       to: [email],
       subject: "Welcome to SaaS Starter Kit!",
-      html: `Please verify your email, the link is only valid for 10 minutes:<br> <a href='https://saas.webry.com/api/verify?token=${token}'>https://saas.webry.com/api/verify?token=${token}</a>.`,
+      html: `Please verify your email, the link is only valid for 10 minutes:<br> <a href='https://saas.webry.com/verify?token=${token}'>https://saas.webry.com/verify?token=${token}</a>.`,
     }),
   )
   if (!data.success) {

@@ -38,6 +38,7 @@ const madeProfileChanges = ref(false)
 const invalidEmail = ref(false)
 const invalidUsername = ref(false)
 const savingProfile = ref(false)
+const verifyingEmail = ref(false)
 
 const { data, status, refresh } = useFetch("/api/settings", {
   method: "GET",
@@ -177,10 +178,12 @@ async function saveProfileChanges() {
 
 async function verifyEmail() {
   await requireLoggedIn()
+  verifyingEmail.value = true
 
   await $csrfFetch("/api/account-verify-email", {
     method: "POST",
     onResponse: (res) => {
+      verifyingEmail.value = false
       if (!res.error) {
         toast({
           variant: "success",
@@ -190,6 +193,7 @@ async function verifyEmail() {
       }
     },
     onResponseError({ response }) {
+      verifyingEmail.value = false
       toast({
         variant: "destructive",
         title: "An Error Occurred",
@@ -231,7 +235,7 @@ async function verifyEmail() {
                 id="username"
                 v-model="data.user_name"
                 placeholder="Your username"
-                :class="{ 'focus-visible:ring-destructive': invalidUsername }"
+                :class="{ 'ring-destructive': invalidUsername }"
                 :schema="z.string().min(0).max(MAX_USER_NAME_LENGTH).optional()"
                 @input="madeProfileChanges = true"
               />
@@ -248,7 +252,7 @@ async function verifyEmail() {
                   v-model="data.email"
                   type="email"
                   placeholder="your@email.com"
-                  :class="{ 'focus-visible:ring-destructive': invalidEmail }"
+                  :class="{ 'ring-destructive': invalidEmail }"
                   :schema="z.string().min(0).max(MAX_EMAIL_LENGTH).email().optional()"
                   @input="madeProfileChanges = true"
                 />
@@ -259,14 +263,16 @@ async function verifyEmail() {
                   class="text-nowrap"
                   @click="verifyEmail"
                 >
+                  <Icon v-if="verifyingEmail" name="heroicons:arrow-path" class="animate-spin -ml-1 mr-2 h-4 w-4" />
                   Verify Email
                 </UiButton>
               </div>
               <p
+                v-if="!data.email_verified"
                 class="text-sm"
                 :class="data.email_verified ? 'text-green-600' : 'text-muted-foreground'"
               >
-                {{ data.email_verified ? 'Email verified' : 'Please verify your email address' }}
+                Please verify your email address
               </p>
             </div>
             <UiSkeleton v-else class="w-24 h-9" />

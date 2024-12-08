@@ -36,16 +36,33 @@ export default defineEventHandler(async (event) => {
     })
   }
 
-  const updatedAccount = await safe(async () => await db
+  // Not very clean as the user could have an old email in their session
+  // But for now, saves a db query
+  const emailChanged = session.user?.email !== body.data.email
+  const updatedAccountResult = await safe(async () => await db
     .update(pgtAccounts)
     .set({
       user_name: body.data.user_name,
       email: body.data.email,
       updated_at: new Date(),
+      ...(emailChanged && {
+        email_verified: null,
+        email_verification_token: null,
+        email_verification_expires_at: null,
+      }),
     })
     .where(eq(pgtAccounts.account_id, loggedInAccountId)),
   )
-  if (!updatedAccount.success) {
+  if (!updatedAccountResult.success) {
+    if (updatedAccountResult.error instanceof Error && updatedAccountResult.error.message.includes("violates unique constraint")) {
+      throw errorAPIResponse({
+        statusCode: HTTP.BAD_REQUEST,
+        statusMessage: `${STATUS_MESSAGES.INVALID}email`,
+        clientMessage: "This email already belongs to another account.",
+        serverMessage: "Email already exists in the database.",
+      })
+    }
+
     throw errorAPIResponse({
       statusCode: HTTP.INTERNAL_SERVER_ERROR,
       statusMessage: STATUS_MESSAGES.UNKNOWN,

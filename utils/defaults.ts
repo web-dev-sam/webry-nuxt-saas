@@ -28,6 +28,7 @@ export const STATUS_MESSAGES = {
 export const STATUS_MESSAGES_SETTINGS = {
   ONLY_ONE_PROVIDER_CONNECTED: "You can't disconnect your last connected provider!",
   EMAIL_VERIFICATION_FAILED: "Failed to verify email",
+  EMAIL_EXISTS: "Email already exists",
 } as const
 
 export const STATUS_MESSAGES_CONNECT_ACCOUNT = {

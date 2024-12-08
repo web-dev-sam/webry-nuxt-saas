@@ -1,5 +1,5 @@
 import { integer, pgTable, timestamp, varchar } from "drizzle-orm/pg-core"
-import { MAX_EMAIL_LENGTH, MAX_NAME_LENGTH, MAX_PROFILE_PICTURE_LENGTH, MAX_USER_NAME_LENGTH } from "./utils/defaults"
+import { MAX_EMAIL_LENGTH, MAX_NAME_LENGTH, MAX_PROFILE_PICTURE_LENGTH, MAX_USER_NAME_LENGTH } from "../../../utils/defaults"
 
 export type AccountId = number & { __brand: "account_id" }
 export type GoogleId = string & { __brand: "google_id" }

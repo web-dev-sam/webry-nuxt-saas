@@ -37,7 +37,7 @@ export default defineEventHandler(async (event) => {
   if (isExpired) {
     return errorAPIResponse({
       clientMessage: "Email verification token has expired",
-      serverMessage: "Email verification token has expired",
+      serverMessage: `Email verification token has expired. Account ID: ${result.data.account_id}`,
       statusCode: HTTP.BAD_REQUEST,
       statusMessage: "Email verification token has expired",
     })
@@ -58,7 +58,7 @@ export default defineEventHandler(async (event) => {
   if (!updateResult.success) {
     return errorAPIResponse({
       clientMessage: "Unknown error",
-      serverMessage: "Unknown error",
+      serverMessage: updateResult.error,
       statusCode: HTTP.INTERNAL_SERVER_ERROR,
       statusMessage: "Unknown error",
     })

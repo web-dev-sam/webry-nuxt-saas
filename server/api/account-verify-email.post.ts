@@ -42,7 +42,7 @@ export default defineEventHandler(async (event) => {
   if (email == null) {
     throw errorAPIResponse({
       clientMessage: "Failed to verify email. Please save your email in your settings first.",
-      serverMessage: "User doesn't have an email in their session!",
+      serverMessage: `User doesn't have an email to verify. Account ID: ${loggedInAccountId}.`,
       statusCode: HTTP.NOT_FOUND,
       statusMessage: STATUS_MESSAGES_SETTINGS.EMAIL_VERIFICATION_FAILED,
     })

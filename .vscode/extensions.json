@@ -6,6 +6,10 @@
     "dbaeumer.vscode-eslint",
     "vue.volar",
     "bradlc.vscode-tailwindcss",
-    "yoavbls.pretty-ts-errors"
+    "yoavbls.pretty-ts-errors",
+    "actboy168.tasks"
+  ],
+  "unwantedRecommendations": [
+    "esbenp.prettier-vscode"
   ]
 }

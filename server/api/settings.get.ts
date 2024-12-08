@@ -20,6 +20,9 @@ export default defineEventHandler(async (event) => {
           github_id: true,
           google_id: true,
           profile_picture: true,
+          email: true,
+          user_name: true,
+          email_verified: true,
         },
       }),
   )
@@ -37,6 +40,9 @@ export default defineEventHandler(async (event) => {
       google: account.google_id != null,
       github: account.github_id != null,
     },
-    profile_picture: account.profile_picture,
+    profile_picture: account.profile_picture ?? undefined,
+    user_name: result.data.user_name ?? undefined,
+    email: result.data.email ?? undefined,
+    email_verified: result.data.email_verified ?? undefined,
   }
 })

@@ -75,10 +75,10 @@ async function handleExistingGoogleAccount(event: OAuthH3Event, db: DB, user: Go
   if (existingAccount != null) {
     await setUserSession(event, {
       user: {
-        email: existingAccount.email,
-        email_verified: existingAccount.email_verified,
-        name: existingAccount.name,
-        user_name: existingAccount.user_name,
+        email: existingAccount.email ?? undefined,
+        email_verified: existingAccount.email_verified ?? undefined,
+        name: existingAccount.name ?? undefined,
+        user_name: existingAccount.user_name ?? undefined,
         profile_picture: existingAccount.profile_picture ?? createProfilePicture(),
       },
       secure: {
@@ -130,9 +130,9 @@ async function handleNewGoogleAccount(event: OAuthH3Event, db: DB, user: GoogleO
   await setUserSession(event, {
     user: {
       email: user.email,
-      email_verified: user.email_verified ? new Date() : null,
+      email_verified: user.email_verified ? new Date() : undefined,
       name: user.name,
-      user_name: null,
+      user_name: undefined,
       profile_picture: user.picture,
     },
     secure: {

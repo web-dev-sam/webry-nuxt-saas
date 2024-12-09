@@ -82,8 +82,8 @@ const features: Feature[] = [
     title: "Planned",
     icon: "ph:credit-card",
     description: "Built-in subscription management and payment processing with Stripe",
-    features: [],
-    planned: ["Stripe Integration", "Email System", "Settings Pages"],
+    features: ["Email System"],
+    planned: ["Stripe Integration", "Setting Pages/Tabs"],
     notplanned: ["Analytics"],
   },
 ]

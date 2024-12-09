@@ -2,9 +2,8 @@ import type { DB } from "~/server/utils/db"
 import type { GoogleId } from "~/server/utils/drizzle/schema"
 import type { OAuthH3Event } from "~/types/auth"
 import { safe, useDB } from "~/server/utils/db"
-import { createProfilePicture } from "~/server/utils/defaults"
-import { errorAPIRedirect, infoLog } from "~/server/utils/log"
-import { HTTP, STATUS_MESSAGES } from "~/utils/defaults"
+import { errorAPIRedirect, logging } from "~/server/utils/log"
+import { createProfilePicture, HTTP, STATUS_MESSAGES } from "~/utils/defaults"
 
 export type GoogleOAuthUser = {
   sub: GoogleId
@@ -29,7 +28,7 @@ export default defineOAuthGoogleEventHandler({
     // LOGGED OUT
     const existingAccountRedirect = await handleExistingGoogleAccount(event, db, user)
     if (existingAccountRedirect !== false) {
-      infoLog("User already has an account!", `Google ID: ${user.sub}`)
+      logging.info("User already has an account!", `Google ID: ${user.sub}`)
       return existingAccountRedirect
     }
     return await handleNewGoogleAccount(event, db, user)

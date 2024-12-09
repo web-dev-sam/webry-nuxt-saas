@@ -1,28 +1,20 @@
 import { eq } from "drizzle-orm"
-import { HTTP, STATUS_MESSAGES_SETTINGS } from "~/utils/defaults"
 import { safe, useDB } from "../utils/db"
-import { Time } from "../utils/defaults"
-import { errorAPIResponse } from "../utils/log"
-import { createRateLimit, rateLimit } from "../utils/rate-limit"
-import { generateEmailVerificationLink, resend } from "../utils/send"
+import { generateEmailVerificationLink, resend } from "../utils/email"
+import { useResponse } from "../utils/log"
+import { rateLimit } from "../utils/utils"
 
 export default defineEventHandler(async (event) => {
-  rateLimit(event, {
-    key: "email-verification",
-    limits: [
-      createRateLimit(1, Time.Minute),
-      createRateLimit(5, Time.Hour),
-    ],
-  })
-
+  rateLimit(event, "account-verify-email.post", ["1 in 1m", "5 in 1h"])
   await requireUserSession(event)
 
   // VALIDATE REQUEST BODY
+  const { redirect400, throw500 } = useResponse(event)
   const session = await getUserSession(event)
   const db = useDB()
   const loggedInAccountId = session.secure?.account_id
   if (!loggedInAccountId) {
-    return sendRedirect(event, "/login", HTTP.UNAUTHORIZED)
+    return redirect400("/login", "Unexpectedly missing account id from session.", "Please login again.")
   }
 
   const emailResult = await safe(
@@ -35,17 +27,12 @@ export default defineEventHandler(async (event) => {
       }),
   )
   if (!emailResult.success) {
-    throwUnknownError(emailResult.error)
+    return throw500(emailResult.error, "Unknown error")
   }
 
   const email = emailResult.data?.email
   if (email == null) {
-    throw errorAPIResponse({
-      clientMessage: "Failed to verify email. Please save your email in your settings first.",
-      serverMessage: `User doesn't have an email to verify. Account ID: ${loggedInAccountId}.`,
-      statusCode: HTTP.NOT_FOUND,
-      statusMessage: STATUS_MESSAGES_SETTINGS.EMAIL_VERIFICATION_FAILED,
-    })
+    return throw500(`User doesn't have an email to verify. Account ID: ${loggedInAccountId}.`, "Please save your email first.", "email")
   }
 
   // SEND EMAIL VERIFICATION
@@ -56,12 +43,12 @@ export default defineEventHandler(async (event) => {
         .update(pgtAccounts)
         .set({
           email_verification_token: token,
-          email_verification_expires_at: new Date(Date.now() + 10 * Time.Minute),
+          email_verification_expires_at: new Date(Date.now() + 10 * 60 * 1000),
         })
         .where(eq(pgtAccounts.account_id, loggedInAccountId)),
   )
   if (!saveTokenResult.success) {
-    throwUnknownError(saveTokenResult.error)
+    return throw500(saveTokenResult.error, "Unknown error")
   }
 
   const data = await safe(
@@ -73,21 +60,10 @@ export default defineEventHandler(async (event) => {
     }),
   )
   if (!data.success) {
-    throwUnknownError(data.error)
-  }
-
-  if (!data.data.data) {
-    throwUnknownError(data.data.error)
+    return throw500(data.error, "Unknown error")
+  } else if (!data.data.data) {
+    return throw500(data.data.error, "Unknown error")
   }
 
   return data.data
 })
-
-function throwUnknownError(error: unknown): never {
-  throw errorAPIResponse({
-    clientMessage: "Failed to send email verification",
-    serverMessage: error,
-    statusCode: HTTP.INTERNAL_SERVER_ERROR,
-    statusMessage: STATUS_MESSAGES_SETTINGS.EMAIL_VERIFICATION_FAILED,
-  })
-}

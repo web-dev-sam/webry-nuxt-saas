@@ -22,5 +22,6 @@ export type OAuthState = {
   auth_mode: "MERGE"
 }
 export type OAuthH3Event = Parameters<Parameters<typeof defineOAuthGitHubEventHandler>[0]["onSuccess"]>[0]
+export type RegularH3Event = Parameters<Parameters<typeof defineEventHandler>[0]>[0]
 
 export {} // Ensure this file is treated as a module

@@ -1,16 +1,17 @@
 import { eq } from "drizzle-orm"
-import { HTTP } from "~/utils/defaults"
 import { safe, useDB } from "../utils/db"
-import { errorLog } from "../utils/log"
+import { useResponse } from "../utils/log"
 
 export default defineEventHandler(async (event) => {
+  await requireUserSession(event)
+
   const session = await getUserSession(event)
+  const { redirect400 } = useResponse(event)
   const db = useDB()
 
   const loggedInAccountId = session.secure?.account_id
   if (loggedInAccountId == null) {
-    errorLog("User tried to delete account but is not logged in!")
-    return sendRedirect(event, "/", HTTP.NOT_FOUND)
+    return redirect400("/login", "Unexpectedly missing account id from session.", "Please login again.")
   }
 
   const result = await safe(
@@ -20,8 +21,7 @@ export default defineEventHandler(async (event) => {
       }),
   )
   if (!result.success) {
-    errorLog("Failed to delete account!", result.error, `Account ID: ${loggedInAccountId}`)
-    return sendRedirect(event, "/dashboard", HTTP.INTERNAL_SERVER_ERROR)
+    return redirect400("/dashboard", `${result.error}\nAccount ID: ${loggedInAccountId}`, "Please try again.")
   }
 
   await clearUserSession(event)

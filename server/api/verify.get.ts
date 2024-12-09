@@ -1,28 +1,19 @@
 import { eq } from "drizzle-orm"
-import { HTTP } from "~/utils/defaults"
 import { safe, useDB } from "../utils/db"
-import { Time } from "../utils/defaults"
-import { errorAPIResponse } from "../utils/log"
-import { createRateLimit, rateLimit } from "../utils/rate-limit"
+import { useResponse } from "../utils/log"
+import { rateLimit } from "../utils/utils"
 
-// TODO: Use redirects to show the user a message that their email has been verified
 export default defineEventHandler(async (event) => {
-  rateLimit(event, {
-    key: "email-verification",
-    limits: [
-      createRateLimit(5, Time.Minute),
-      createRateLimit(10, Time.Hour),
-    ],
-  })
+  rateLimit(event, "verify.get", ["5 in 1m", "10 in 1h"])
   await requireUserSession(event)
 
-  const db = useDB()
-  const query = getQuery(event)
-  const token = query.token
+  const { throw500, throw400, redirect400 } = useResponse(event)
+  const token = getQuery(event).token
   if (token == null) {
-    return sendRedirect(event, "/settings", HTTP.BAD_REQUEST)
+    return redirect400("/settings", "", "No token provided")
   }
 
+  const db = useDB()
   const emailDetailsResult = await safe(
     async () =>
       await db.query.pgtAccounts.findFirst({
@@ -34,23 +25,15 @@ export default defineEventHandler(async (event) => {
         },
       }),
   )
-  if (!emailDetailsResult.success || !emailDetailsResult.data || !emailDetailsResult.data.email_verification_expires_at) {
-    return errorAPIResponse({
-      clientMessage: "The token is expired or invalid!",
-      serverMessage: "error" in emailDetailsResult ? emailDetailsResult.error : "Unknown error (Probably the token is invalid or doesn't exist)",
-      statusCode: HTTP.INTERNAL_SERVER_ERROR,
-      statusMessage: "The token is expired or invalid!",
-    })
+  if (!emailDetailsResult.success) {
+    return throw500(emailDetailsResult.error, "The token is expired or invalid!")
+  } else if (!emailDetailsResult.data || !emailDetailsResult.data.email_verification_expires_at) {
+    return throw500("", "The token is expired or invalid!")
   }
 
   const isExpired = emailDetailsResult.data.email_verification_expires_at < new Date()
   if (isExpired) {
-    return errorAPIResponse({
-      clientMessage: "Email verification token has expired",
-      serverMessage: `Email verification token has expired. Account ID: ${emailDetailsResult.data.account_id}`,
-      statusCode: HTTP.BAD_REQUEST,
-      statusMessage: "Email verification token has expired",
-    })
+    return throw400(`Account ID: ${emailDetailsResult.data.account_id}`, "Email verification token has expired!")
   }
 
   const accountId = emailDetailsResult.data.account_id
@@ -66,12 +49,7 @@ export default defineEventHandler(async (event) => {
         .where(eq(pgtAccounts.account_id, accountId)),
   )
   if (!updateResult.success) {
-    return errorAPIResponse({
-      clientMessage: "Unknown error",
-      serverMessage: updateResult.error,
-      statusCode: HTTP.INTERNAL_SERVER_ERROR,
-      statusMessage: "Unknown error",
-    })
+    return throw500(updateResult.error, "Unknown error")
   }
 
   return "Email verified! Thanks!!!"

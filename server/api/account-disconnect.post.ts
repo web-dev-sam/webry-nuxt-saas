@@ -3,7 +3,7 @@ import { eq } from "drizzle-orm"
 import { z } from "zod"
 import { HTTP, STATUS_MESSAGES, STATUS_MESSAGES_SETTINGS } from "~/utils/defaults"
 import { safe, useDB } from "../utils/db"
-import { errorAPIResponse, successAPIResponse } from "../utils/log"
+import { errorAPIResponse } from "../utils/log"
 
 export default defineEventHandler(async (event) => {
   await requireUserSession(event)
@@ -120,5 +120,5 @@ export default defineEventHandler(async (event) => {
     )
   }
 
-  return successAPIResponse()
+  return "Account disconnected successfully!"
 })

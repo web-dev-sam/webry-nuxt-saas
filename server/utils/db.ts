@@ -1,8 +1,8 @@
-import type { Result } from "./result"
+import type { Result } from "./utils"
 import { drizzle } from "drizzle-orm/node-postgres"
 import pg from "pg"
 import * as schema from "~/server/utils/drizzle/schema"
-import { errorLog } from "./log"
+import { logging } from "./log"
 
 export const tables = schema
 export type DB = ReturnType<typeof useDB>
@@ -20,9 +20,8 @@ export async function safe<T>(operation: () => Promise<T>): Promise<Result<T, un
   try {
     const data = await operation()
     return { success: true, data }
-  }
-  catch (error) {
-    errorLog(" ", error)
+  } catch (error) {
+    logging.error(" ", error)
 
     return {
       success: false,

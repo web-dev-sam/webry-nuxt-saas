@@ -21,6 +21,12 @@ useSeoMeta({
   // twitterDescription: "Your compelling description here - make it unique and descriptive",
   // twitterImage: "https://saas.webry.com/logo.svg", // Already/Should-be handled by og image module
 })
+
+useHead({
+  meta: [
+    { name: "google-site-verification", content: "sPGzYgBohvrx3SVNFovdsQHNIQunldsnfJpLRux0keo" }
+  ]
+})
 </script>
 
 <template>

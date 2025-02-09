@@ -4,14 +4,15 @@
   "private": true,
   "packageManager": "pnpm@9.14.4",
   "engines": {
-    "node": ">=20.0.0 <21.0.0"
+    "node": ">=20.0.0"
   },
   "scripts": {
     "pre": "nuxt prepare",
     "build": "nuxt build",
     "dev": "nuxt dev",
     "generate": "nuxt generate",
-    "preview": "nuxt preview",
+    "preview": "pnpx nuxthub preview",
+    "deploy": "pnpx nuxthub deploy",
     "types": "nuxt typecheck",
     "lint": "TIMING=1 DEBUG=eslint:eslint eslint --cache .",
     "check": "pnpm run lint && pnpm run types",

@@ -14,6 +14,7 @@ export default defineNuxtConfig({
     lang: "en",
   },
   modules: [
+    "@nuxthub/core",
     "@nuxtjs/tailwindcss",
     "@nuxtjs/color-mode",
     "@nuxtjs/seo",
@@ -51,6 +52,7 @@ export default defineNuxtConfig({
       },
     },
   },
+  hub: {},
   ogImage: {
     defaults: {
       component: "NuxtSeo",

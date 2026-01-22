@@ -72,7 +72,7 @@ export default defineNuxtConfig({
   seo: {
     automaticDefaults: true,
     automaticOgAndTwitterTags: true,
-    redirectToCanonicalSiteUrl: true,
+    redirectToCanonicalSiteUrl: false,
   },
   nitro: {
     preset: "node-server",

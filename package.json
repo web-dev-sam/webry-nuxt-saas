@@ -2,7 +2,7 @@
   "name": "nuxt-app",
   "type": "module",
   "private": true,
-  "packageManager": "pnpm@9.14.4",
+  "packageManager": "pnpm@9.15.0",
   "engines": {
     "node": ">=20.0.0"
   },
@@ -71,20 +71,6 @@
     "typescript": "~5.6",
     "typescript-eslint": "^8.17.0",
     "vue-tsc": "^2.1.10"
-  },
-  "pnpm": {
-    "supportedArchitectures": {
-      "os": [
-        "linux",
-        "current"
-      ],
-      "cpu": [
-        "x64"
-      ],
-      "libc": [
-        "glibc"
-      ]
-    }
   },
   "overrides": {
     "vite-plugin-checker": "0.8.0",

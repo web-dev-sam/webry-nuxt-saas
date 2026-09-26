@@ -1,0 +1,24 @@
+{
+  "title": "Webry Nuxt SaaS",
+  "tagline": "A modern SaaS template using Nuxt, Shadcn, Postgres, OAuth, Resend, ... 🚀",
+  "sections": [
+    {
+      "title": "Where to find it",
+      "body": [
+        "Live at [saas.webry.com](https://saas.webry.com/)."
+      ]
+    },
+    {
+      "title": "Learn more",
+      "body": [
+        "Look at",
+        "",
+        "[Nuxt](https://nuxt.com/docs/getting-started/introduction)",
+        "[Shadcn Vue](https://www.shadcn-vue.com/docs/introduction.html)",
+        "[Tailwind](https://tailwindcss.com/docs/container)",
+        "",
+        "to learn more."
+      ]
+    }
+  ]
+}

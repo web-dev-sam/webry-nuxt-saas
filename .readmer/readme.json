@@ -20,5 +20,6 @@
         "to learn more."
       ]
     }
-  ]
+  ],
+  "why": "Every SaaS idea needs the same auth/db/email plumbing; this is that plumbing done once."
 }

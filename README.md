@@ -9,6 +9,9 @@ _A modern SaaS template using Nuxt, Shadcn, Postgres, OAuth, Resend, ... 🚀_
 
 &nbsp;
 
+## Why does this exist?
+Every SaaS idea needs the same auth/db/email plumbing; this is that plumbing done once.
+
 ## Where to find it
 
 Live at [saas.webry.com](https://saas.webry.com/).
